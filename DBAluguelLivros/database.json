@@ -1,0 +1,70 @@
+{
+  "alunos": [
+    {
+      "id": 0,
+      "nomeAluno": "neymar",
+      "matriculaAluno": "1234",
+      "cursoAluno": "vagabundo",
+      "anoAluno": "2025"
+    },
+    {
+      "id": 1,
+      "nomeAluno": "bida",
+      "matriculaAluno": "1234",
+      "cursoAluno": "vagabundo",
+      "anoAluno": "2025"
+    }
+  ],
+  "livros": [
+    {
+      "id": 0,
+      "tituloLivro": "o bacana",
+      "autorLivro": "paraizo",
+      "anoLivro": 2025,
+      "generoLivro": "dark romance"
+    },
+    {
+      "id": 1,
+      "tituloLivro": "palmeiras",
+      "autorLivro": "abel",
+      "anoLivro": 2025,
+      "generoLivro": "dark romance"
+    },
+    {
+      "id": 2,
+      "tituloLivro": "megacavaleiro",
+      "autorLivro": "roderval",
+      "anoLivro": 2025,
+      "generoLivro": "dark romance"
+    }
+  ],
+  "alugueis": [
+    {
+      "id": 0,
+      "idLivro": "1",
+      "nomeLivro": "palmeiras",
+      "idAluno": "0",
+      "nomeAluno": "paraizo",
+      "dataAluguel": "2025-09-10T14:56:24.491Z",
+      "dataDevolucao": "29/09/2332"
+    },
+    {
+      "id": 1,
+      "idLivro": "1",
+      "nomeLivro": "palmeiras",
+      "idAluno": "0",
+      "nomeAluno": "neymar",
+      "dataAluguel": "2025-09-10T14:55:56.604Z",
+      "dataDevolucao": "29/09/2332"
+    },
+    {
+      "id": 2,
+      "idLivro": "2",
+      "nomeLivro": "megacavaleiro",
+      "idAluno": "1",
+      "nomeAluno": "bida",
+      "dataAluguel": "2025-09-11T12:49:06.118Z",
+      "dataDevolucao": "29/09/2332"
+    }
+  ]
+}
