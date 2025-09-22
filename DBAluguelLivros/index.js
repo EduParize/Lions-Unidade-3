@@ -1,10 +1,20 @@
 import express from "express";
+import mongoose from "mongoose";
 const app = express();
 const router = express.Router();
 const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+mongoose.connect("mongodb+srv://eduardoparize05_db_user:paraizopalmeiras123@db-baralhos.cigxjam.mongodb.net/?retryWrites=true&w=majority&appName=db-baralhos")
+
+mongoose.connection.once("open", ()=>{
+  console.log("Conectado ao MongoDB ")
+})
+mongoose.connection?.on('error', (err)=>{
+  console.error(`Error to connect - MongoDB: Error: ${err.message}`)
+})
+
 
 import { postLivros } from "./modulos/postLivros.js";
 import { getLivros } from "./modulos/getLivros.js";
