@@ -22,10 +22,12 @@ import { postBaralho } from "./modulos/Baralho/postBaralho.js";
 import { getBaralhos } from "./modulos/Baralho/getBaralho.js";
 import { putBaralho } from "./modulos/Baralho/putBaralho.js";
 import { deleteBaralho } from "./modulos/Baralho/deleteBaralho.js";
+import { postFlashcard } from "./modulos/flashcard/postFlashcard.js";
 router.get("/baralhos", getBaralhos);
 router.post("/baralhos", postBaralho);
 router.put("/baralhos/:id", putBaralho);
 router.delete("/baralhos/:id", deleteBaralho);
+router.post("/flashcards", postFlashcard);
 router.get("/", (req, res) => {
   res.send("API funcionando!");
 });

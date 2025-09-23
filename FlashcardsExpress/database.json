@@ -9,5 +9,20 @@
       "nomeBaralho": "sexo 88"
     }
   ],
-  "flashcards": []
+  "flashcards": [
+    {
+      "id": 0,
+      "baralhoID": "1",
+      "nomeBaralho": "sexo 88",
+      "perguntaFlashcard": "quale o nome do negozio?",
+      "respostaFlashcard": "sim"
+    },
+    {
+      "id": 1,
+      "baralhoID": "1",
+      "nomeBaralho": "sexo",
+      "perguntaFlashcard": "quale o nome do negozio?",
+      "respostaFlashcard": "NAO"
+    }
+  ]
 }
