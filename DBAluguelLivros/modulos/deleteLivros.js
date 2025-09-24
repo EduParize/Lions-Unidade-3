@@ -1,15 +1,17 @@
-import { readData, writeData } from "./fileUtils.js";
-
-export function deleteLivros(req, res) {
-  const database = readData();
-  const livros = database.livros;
-  const id = parseInt(req.params.id, 10);
-  let livrosIndex = database.livros.findIndex((aluno) => aluno.id == id);
-  if (livrosIndex == -1) {
-    res.status(400).send(`Nenhum livro encontrado com esse ID`);
+import { book } from "../bookSchma.js";
+export async function deleteLivros(req, res) {
+  try {
+    const { id } = req.params;
+    const livroExiste = await book.findById(id);
+    if (!livroExiste) {
+      return res.status(404).json({ message: "Livro nao encontrado" });
+    }
+    const livroDeletado = await book.findByIdAndDelete(id);
+    return res.status(200).send("Livro deletado!");
+  } catch (error) {
+    console.error("Erro ao atualizar o livro: ", error.message);
+    return res
+      .status(500)
+      .json({ message: "Erro interno do servidor ao deletar o livro." });
   }
-
-  livros.splice(id, 1)
-  writeData(database)
-  res.status(200).send(`Livro deletado!`)
 }

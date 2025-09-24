@@ -1,25 +1,24 @@
 import { readData, writeData } from "./fileUtils.js";
+import { book } from "../bookSchma.js";
 
-export function postLivros(req, res) {
-  const { tituloLivro, autorLivro, anoLivro, generoLivro } = req.body;
-  if (!tituloLivro || !autorLivro || !anoLivro || !generoLivro) {
+export async function postLivros(req, res) {
+  const { title, author, year, genre } = req.body;
+  if (!title || !author || !year || !genre) {
     res
       .status(400)
       .send("Informacoes incompletas, por favor insira novamente!");
   }
-  const database = readData();
-  let proximoIDlivro =
-    database.livros.length > 0
-      ? Math.max(...database.livros.map((m) => m.id)) + 1
-      : 0;
-  const novoLivro = {
-    id: proximoIDlivro++,
-    tituloLivro: req.body.tituloLivro,
-    autorLivro: req.body.autorLivro,
-    anoLivro: req.body.anoLivro,
-    generoLivro: req.body.generoLivro,
-  };
-  database.livros.push(novoLivro);
-  writeData(database);
-  return res.status(201).send(`Livro ${req.body.tituloLivro} criado com sucesso!`);
+  const novoLivro = new book({
+    title: req.body.title,
+    author: req.body.author,
+    year: req.body.year,
+    genre: req.body.genre,
+  });
+  try {
+    const salvarLivro = await novoLivro.save();
+    res.status(200).send("LIvro criado com sucesso!", salvarLivro)
+  } catch (error) {
+    console.error("Erro ao criar o livro: ", error.message)
+    throw error;
+  }
 }

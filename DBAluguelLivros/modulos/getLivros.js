@@ -1,12 +1,13 @@
-import { readData, writeData } from "./fileUtils.js";
+import { book } from "../bookSchma.js";
 
-
-export function getLivros(req, res) {
-    const database = readData()
-    const livros = database.livros
-  if (livros.length > 0) {
-    res.status(200).send(livros);
-  } else {
-    res.status(400).send("Nenhum livro cadastrado!");
+export async function getLivros(req, res) {
+  try {
+    const livros = await book.find();
+    return res.status(200).send(livros);
+  } catch (error) {
+    console.error("Erro ao buscar os livros:", error.message);
+    return res
+      .status(400)
+      .send("Erro interno do servidor ao buscar os livros.");
   }
 }

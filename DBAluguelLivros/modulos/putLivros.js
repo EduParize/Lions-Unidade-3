@@ -1,27 +1,21 @@
 import { readData, writeData } from "./fileUtils.js";
-
-export function putLivros(req, res) {
-  const database = readData();
-
-  const id = parseInt(req.params.id, 10);
-  let livroIndex = database.livros.findIndex((aluno) => aluno.id == id);
-  if ((livroIndex == -1)) {
-    res.status(400).send(`Nenhum livro encontrado com esse ID`);
+import { book } from "../bookSchma.js";
+export async function putLivros(req, res) {
+  try {
+    const { id } = req.params;
+    const { title, author, year, genre } = req.body;
+    const livroExiste = await book.findById(id);
+    if (!livroExiste) {
+      return res.status(404).json({ message: "LIvro nao encontrado" });
+    }
+    const livroAtualizado = await book.findByIdAndUpdate(
+      id,
+      { title, author, year, genre },
+      { new: true, runValidators: true }
+    );
+    return res.status(200).json(livroAtualizado)
+  } catch (error) {
+    console.error("Erro ao atualizar o livro: ", error.message);
+    return res.status(500).json({ message: "Erro interno do servidor ao atualizar o livro." });
   }
-  const { tituloLivro, autorLivro, anoLivro, generoLivro } = req.body;
-  if (!tituloLivro || !autorLivro || !anoLivro || !generoLivro) {
-    res
-      .status(400)
-      .send(`Informacoes incompletas, por favor insira novamente!`);
-  }
-  const novoLivro = {
-    id: id,
-    tituloLivro: req.body.tituloLivro,
-    autorLivro: req.body.autorLivro,
-    anoLivro: req.body.anoLivro,
-    generoLivro: req.body.generoLivro,
-  };
-  database.livros[livroIndex] = novoLivro;
-  writeData(database)
-  res.status(200).send(`Aluno atualizado para ${req.body.tituloLivro}`);
 }
