@@ -1,7 +1,7 @@
-import { readData, writeData } from "../fileUtils.js";
+import { baralho } from "../../baralhoSchma.js";
+
 
 export function getBaralhos(req, res) {
-  const database = readData()
   if (database.baralhos.length == 0) {
     res.status(400).send("Nenhum baralho cadastrado!");
   

@@ -28,4 +28,7 @@ export function deletarFlashcard() {
 
     exibirMenu()
 
+
+    
+
 }

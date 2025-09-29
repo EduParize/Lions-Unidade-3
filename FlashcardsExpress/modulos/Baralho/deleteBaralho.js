@@ -1,19 +1,19 @@
-import { readData, writeData } from "../fileUtils.js";
+import { baralho } from "../../baralhoSchma.js";
+import { flashcard } from "../../flashcardSchma.js";
 
-export function deleteBaralho(req, res) {
-  const database = readData();
- const baralhos = database.baralhos
-  const id = parseInt(req.params.id);
+export async function deleteBaralho(req, res) {
+  try {
+    const { id } = req.params;
+    const baralhoExiste = await baralho.findById(id);
+    if (!baralhoExiste) {
+      return res.status(404).send("Livro nao encontrado!");
+    }
 
-  if (id === -1) {
-    res
-      .status(400)
-      .send(
-        "ID inválido! Nenhum baralho encontrado com este ID. Insira novamente!"
-      );
+   await baralho.findByIdAndDelete(id);
+
+    res.status(200).send("Baralho deletado!");
+  } catch (error) {
+    console.error("Erro ao deletar o baralho: ", error.message);
+    return res.status(500).send("Erro ao deletar o baralho!");
   }
-
-  baralhos.splice(id, 1);
-  writeData(database)
-  res.status(200).send("Baralho deletado!");
 }

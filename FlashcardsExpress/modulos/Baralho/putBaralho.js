@@ -1,25 +1,24 @@
-import { readData, writeData } from "../fileUtils.js";
+import { baralho } from "../../baralhoSchma.js";
 
-export function putBaralho(req, res) {
-  const database = readData();
-  const id = parseInt(req.params.id);
+export async function putBaralho(req, res) {
+  try {
+    const { id } = req.params;
+    const { nomeBaralho } = req.body;
 
-  let baralhoIndex = database.baralhos.findIndex((baralho) => baralho.id == id);
-  if (baralhoIndex == -1) {
-    res.status(400).send(`Nenhum baralho encontrado com esse ID`);
-  }
-  const { nomeBaralho } = req.body;
-
-  if (!nomeBaralho) {
-    res
+    const baralhoExiste = await baralho.findById(id);
+    if (!baralhoExiste) {
+      return res.status(404).send("Livro nao encontrado!");
+    }
+    const baralhoAtualizado = await baralho.findByIdAndUpdate(
+      id,
+      { nomeBaralho },
+      { new: true, runValidators: true }
+    );
+    res.status(200).send(`Baralho atualizado para ${req.body.nomeBaralho}`);
+  } catch (error) {
+    console.error("Erro ao ataulizar o baralho: ", error.message);
+    return res
       .status(400)
-      .send(`Informacoes incompletas, por favor insira novamente!`);
+      .send("Erro interno do servidor ao atualizar o baralho.");
   }
-  const atualizadoBaralho = {
-    id: id,
-    nomeBaralho: req.body.nomeBaralho,
-  };
-  database.baralhos[baralhoIndex] = atualizadoBaralho;
-  writeData(database);
-  res.status(200).send(`Baralho atualizado para ${req.body.nomeBaralho}`);
 }
