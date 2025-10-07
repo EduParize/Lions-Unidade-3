@@ -1,4 +1,5 @@
 import mongoose, { model } from "mongoose";
+import { Produto } from "./ProdutosSchemas.js";
 
 const movimentacaoSchemas = new mongoose.Schema({
     idProduto:{
@@ -12,7 +13,8 @@ const movimentacaoSchemas = new mongoose.Schema({
     },
     quantidadeMovimentacao:{
         type:Number,
-        required: true
+        required: true,
+        min:[1]
     },
     data:{
         type:Date,

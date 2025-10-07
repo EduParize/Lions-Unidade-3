@@ -22,5 +22,9 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 import { postProduto } from "./modulos/postProdutos.js";
+import { postMovimentacao } from "./modulos/postMovimentacao.js";
+import { getHistorico } from "./modulos/getHistorico.js";
 
 router.post("/produtos", postProduto)
+router.post("/produtos/:id/:tipo", postMovimentacao)
+router.get("/produtos/:id/historico", getHistorico)

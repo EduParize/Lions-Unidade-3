@@ -1,8 +1,8 @@
-import { produto } from "../schemas/ProdutosSchemas.js";
+import { Produto } from "../schemas/ProdutosSchemas.js";
 export async function postProduto(req, res){
     const {nomeProduto, quantidadeProduto} = req.body
 
-    const novoProduto = new produto({
+    const novoProduto = new Produto({
         nomeProduto,
         quantidadeProduto
     })
