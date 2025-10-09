@@ -24,7 +24,11 @@ app.listen(port, () => {
 import { postPet } from "./modulos/postPet.js";
 import { putPets } from "./modulos/putPets.js";
 import { deletePet } from "./modulos/deletePets.js";
+import { getPets } from "./modulos/getPets.js";
+import { getBuscaPets } from "./modulos/getBuscaPets.js";
 
 router.post("/pets", postPet);
 router.put("/pets/:id", putPets);
 router.delete("/pets/:id", deletePet);
+router.get("/pets", getPets)
+router.get("/pets/busca", getBuscaPets)
