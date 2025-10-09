@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
+import dotenv from "dotenv"
+dotenv.config()
 const app = express();
 const router = express.Router();
 const port = 3000;
@@ -7,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const dbNome = "petAdocao";
 mongoose.connect(
-  `mongodb+srv://eduardoparize05_db_user:paraizopalmeiras123@db-baralhos.cigxjam.mongodb.net/${dbNome}`
+  process.env.banco
 );
 
 mongoose.connection.once("open", () => {
