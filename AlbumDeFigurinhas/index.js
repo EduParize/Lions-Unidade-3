@@ -25,7 +25,9 @@ app.listen(port, () => {
 import { postFigurinha } from "./modules/postFigurinha.js";
 import { putFigurinha } from "./modules/putFigurinha.js";
 import { deleteFigurinha } from "./modules/deleteFigurinha.js";
+import { getBuscaFigurinha } from "./modules/getBuscaFigurinha.js";
 
 router.post("/figurinha", postFigurinha);
 router.put("/figurinha/:id", putFigurinha);
-router.delete("/figurinha/:id", deleteFigurinha)
+router.delete("/figurinha/:id", deleteFigurinha);
+router.get("/figurinha/busca", getBuscaFigurinha);
