@@ -26,8 +26,10 @@ import { postFigurinha } from "./modules/postFigurinha.js";
 import { putFigurinha } from "./modules/putFigurinha.js";
 import { deleteFigurinha } from "./modules/deleteFigurinha.js";
 import { getBuscaFigurinha } from "./modules/getBuscaFigurinha.js";
+import { getFigurinha } from "./modules/getFigurinhas.js";
 
 router.post("/figurinha", postFigurinha);
 router.put("/figurinha/:id", putFigurinha);
 router.delete("/figurinha/:id", deleteFigurinha);
 router.get("/figurinha/busca", getBuscaFigurinha);
+router.get("/figurinha", getFigurinha);
