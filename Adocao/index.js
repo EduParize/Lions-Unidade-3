@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 dotenv.config()
 const app = express();
 const router = express.Router();
-const port = 3000;
+const port = 3000;''
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const dbNome = "petAdocao";

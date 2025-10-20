@@ -22,4 +22,4 @@ const schemaPet = new mongoose.Schema({
     }
 
 })
-export const pet = mongoose.model('pet', schemaPet)
+export const pet = mongoose.model('pet', schemaPet)  
