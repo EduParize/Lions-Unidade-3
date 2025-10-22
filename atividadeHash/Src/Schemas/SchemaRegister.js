@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-const SchemaRegister = new mongoose.Schema({
+export const SchemaRegister = new mongoose.Schema({
     Nome: {
         type: String,
         required: true

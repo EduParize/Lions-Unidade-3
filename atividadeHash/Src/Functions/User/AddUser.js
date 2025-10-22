@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
-import { RegisterUserMGS } from "../Schemas/SchemaRegister.js"
-import { RetornarErro } from "../Utils/utils.js"
-import { RetornarSucesso } from "../Utils/utils.js"
+import { RegisterUserMGS } from "../../Schemas/SchemaRegister.js"
+import { RetornarErro } from "../../Utils/utils.js"
+import { RetornarSucesso } from "../../Utils/utils.js"
 export async function AddUser(req,res) {
     try{
     const Dados = req.body

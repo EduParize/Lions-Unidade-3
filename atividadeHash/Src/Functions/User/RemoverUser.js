@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt"
 import mongoose from "mongoose";
-import { RegisterUserMGS } from "../Schemas/SchemaRegister.js";
-import { RetornarErro } from "../Utils/utils.js";
-import { RetornarSucesso } from "../Utils/utils.js";
+import { RegisterUserMGS } from "../../Schemas/SchemaRegister.js";
+import { RetornarErro } from "../../Utils/utils.js";
+import { RetornarSucesso } from "../../Utils/utils.js";
 export async function RemoveUser(req, res) {
     try {
         const { id } = req.params;
