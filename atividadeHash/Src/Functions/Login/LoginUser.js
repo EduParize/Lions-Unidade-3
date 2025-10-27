@@ -16,7 +16,7 @@ async function loginUser(req, res){
       console.log('JWT secret não configurado');
       return res.status(500).json({ error: "Erro de configuração do servidor."});
   }
-  const token = jwt.sign({ userId: user._id }, secret, { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user._id, role:user.Role }, secret, { expiresIn: '1h' });
 
   res.json({ message: 'Login realizado com sucesso!', token });
 }

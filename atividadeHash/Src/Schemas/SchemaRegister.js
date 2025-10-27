@@ -12,6 +12,11 @@ export const SchemaRegister = new mongoose.Schema({
         type: String,
         required: true
     },
+    Role:{
+        type:[String],
+        enum: ["ADMIN", "USER"],
+        default: "USER"
+    }
 
 })
 

@@ -3,27 +3,37 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config(); // Carrega as variáveis de ambiente do arquivo .env
 
-export function AuthMiddleware(req, res, next) {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) return RetornarErro(res, "Token invalido", 401);
+export const Role = {
+  USER: "USER",
+  ADMIN: "ADMIN",
+};
+export function AuthMiddleware(...allowedRoles) {
+  return (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) return RetornarErro(res, "Token invalido", 401);
 
-  const token = authHeader.startsWith("Bearer ")
-    ? authHeader.slice(7)
-    : authHeader;
-
-  try {
-    const secret = process.env.JWT_SECRET;
-    if (!secret) {
-      console.log("JWT secret não configurado");
-      return RetornarErro(res, "Erro de configuração", 500);
+    let token = authHeader.startsWith("Bearer ")
+      ? authHeader.slice(7)
+      : authHeader;
+    if (authHeader.startsWith("Bearer")) {
+      token = authHeader.slice("Bearer ".length).trim();
     }
-    console.log("Verificando token:", token);
-    const decoded = jwt.verify(token, secret);
-    console.log("Token decodificado com sucesso:", decoded);
-    req.user = decoded;
-    next();
-  } catch (error) {
-    console.log("Erro ao verificar token:", error.message);
-    return RetornarErro(res, "Token invalido", 401);
-  }
+    try {
+      const secret = process.env.JWT_SECRET;
+      if (!secret) {
+        console.log("JWT secret não configurado");
+        return RetornarErro(res, "Erro de configuração", 500);
+      }
+  
+      const decoded = jwt.verify(token, secret);
+      req.user = decoded;
+
+      const hasPermission = decoded.role?.some((r) => allowedRoles.includes(r));
+      if (!hasPermission) return RetornarErro(res, "Acesso negado", 401);
+      next();
+    } catch (error) {
+      console.log("Erro ao verificar token:", error.message);
+      return RetornarErro(res, "Token invalido", 401);
+    }
+  };
 }
