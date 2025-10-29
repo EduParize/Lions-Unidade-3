@@ -9,7 +9,7 @@ const port = process.env.PORT
 
 async function startServer(){
 try{
-    await mongoose.connect(process.env.MONGO_URL)
+    await mongoose.connect(process.env.MONGO_URI)
     console.log("Conectado com sucesso com o MongoDB!")
     mongoose.connection.on("error", (err)=>{
         console.error(`Erro de conexão com o MongoDB: ${err.message}`)
