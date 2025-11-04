@@ -1,5 +1,8 @@
 import repo from "../repositories/user.repository.js";
 import returnError from "../utils/returnError.js";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+dotenv.config();
 
 function validations({ Name, Email, Password }) {
   if (!Name) {
@@ -17,14 +20,16 @@ export default {
   async createUser(data) {
     validations(data);
 
-    const existing = await repo.findEmail(data.email);
+    const existing = await repo.findEmail(data.Email);
     if (existing) {
-      throw returnError("Eamil ja cadastrado", 409);
+      throw returnError("Email ja cadastrado", 409);
     }
+    const hashPassword = await bcrypt.hash(data.Password, 10);
     return repo.create({
       Name: data.Name.trim(),
       Email: data.Email.trim(),
-      Password: data.Password,
+      Password: hashPassword,
+      Role: data.Role,
     });
   },
   async listUser() {
@@ -38,5 +43,18 @@ export default {
     }
     return user;
   },
-  
+  async updateUser(id, data){
+    const user = await repo.findByID(id);
+    if(!user){
+      throw returnError("Nenhum usuario encontrado com esse id", 404);
+    }
+    if(data.Password){
+      const hashPassword = await bcrypt.hash(data.Password, 10);
+      data.Password = hashPassword;
+    }
+    return repo.updateByID(id, data);
+  },
+  async deleteUser(id){
+    return repo.deleteById(id)
+  }
 };

@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "build": "npm install",
-    "start":"node src/server.js",
-    "nodemon": "nodemon ./src/server.js"
+    "start": "node src/server.js",
+    "nodemon": "nodemon src/server.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC", 
+  "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
